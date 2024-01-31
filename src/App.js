@@ -1,7 +1,8 @@
 import {useEffect, useReducer} from 'react'
-import './App.css';
 import Header from './Header'
-import Main from './Main'
+import Main   from './Main'
+import Loader from './Loader'
+import Error  from './Error'
 
 const initialState = {
   questions: [],
@@ -18,28 +19,26 @@ function reducer(prevState, action){
       }
     case 'dataFailed':
       return {
-        ...prevState,
-        status: 'error'
       }
     default: throw new Error('Action unknown')
   }
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [{questions, status}, dispatch] = useReducer(reducer, initialState)
 
   useEffect(function(){
     fetch('http://localhost:8000/questions')
       .then(res => res.json())
         .then(data => dispatch({type: 'dataReceived', payload: data}))
           .catch(err => dispatch({type: 'dataFailed'}))
-  })
+  }, [])
   return (
     <div className="App">
       <Header></Header>
       <Main>
-        <p>1/10</p>
-        <p>Questions?</p>
+        {status === 'loading' && <Loader />}
+        {status === 'error'   && <Error />}
       </Main>
     </div>
   );
