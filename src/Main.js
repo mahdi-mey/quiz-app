@@ -1,5 +1,7 @@
-export default function App (){
+export default function App ({children}) {
     return(
-        <main className="main"></main>
+        <main className="main">
+            {children}
+        </main>
     )
 }
