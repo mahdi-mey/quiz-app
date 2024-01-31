@@ -3,6 +3,7 @@ import Header from './Header'
 import Main   from './Main'
 import Loader from './Loader'
 import Error  from './Error'
+import StartScreen from './StartScreen'
 
 const initialState = {
   questions: [],
@@ -19,6 +20,8 @@ function reducer(prevState, action){
       }
     case 'dataFailed':
       return {
+        ...prevState,
+        status: 'error'
       }
     default: throw new Error('Action unknown')
   }
@@ -26,6 +29,8 @@ function reducer(prevState, action){
 
 function App() {
   const [{questions, status}, dispatch] = useReducer(reducer, initialState)
+
+  const numQuestions = questions.length
 
   useEffect(function(){
     fetch('http://localhost:8000/questions')
@@ -39,6 +44,7 @@ function App() {
       <Main>
         {status === 'loading' && <Loader />}
         {status === 'error'   && <Error />}
+        {status === 'ready'   && <StartScreen numQuestions={numQuestions} />}
       </Main>
     </div>
   );
