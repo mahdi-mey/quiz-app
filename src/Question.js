@@ -1,7 +1,13 @@
-export default function Question(){
+export default function Question({question}){
+    console.log(question);
     return(
         <div>
-            Question
+            <h4>{question.question}</h4>
+            <div className="optopns">
+                {question.options.map(option => (
+                    <button className="btn btn-option" key={option}>{option}</button>
+                ))} 
+            </div>
         </div>
     )
 }
