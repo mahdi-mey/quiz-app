@@ -1,19 +1,20 @@
-import {useEffect, useReducer} from 'react'
+import { useEffect, useReducer } from 'react'
 import Header from './Header'
-import Main   from './Main'
+import Main from './Main'
 import Loader from './Loader'
-import Error  from './Error'
+import Error from './Error'
 import StartScreen from './StartScreen'
 import Question from './Question'
 
 const initialState = {
   questions: [],
   status: 'loading', // loading, error, ready, active, finished
-  index: 0
+  index: 0,
+  answer: null
 }
 
-function reducer(prevState, action){
-  switch(action.type){
+function reducer(prevState, action) {
+  switch (action.type) {
     case 'dataReceived':
       return {
         ...prevState,
@@ -26,33 +27,38 @@ function reducer(prevState, action){
         status: 'error'
       }
     case 'start':
-      return{
+      return {
         ...prevState,
         status: 'active'
+      }
+    case 'newAnswer':
+      return {
+        ...prevState,
+        answer: action.payload
       }
     default: throw new Error('Action unknown')
   }
 }
 
 function App() {
-  const [{questions, status, index}, dispatch] = useReducer(reducer, initialState)
+  const [{ questions, status, index, answer }, dispatch] = useReducer(reducer, initialState)
 
   const numQuestions = questions.length
 
-  useEffect(function(){
+  useEffect(function () {
     fetch('http://localhost:8000/questions')
       .then(res => res.json())
-        .then(data => dispatch({type: 'dataReceived', payload: data}))
-          .catch(err => dispatch({type: 'dataFailed'}))
+      .then(data => dispatch({ type: 'dataReceived', payload: data }))
+      .catch(err => dispatch({ type: 'dataFailed' }))
   }, [])
   return (
     <div className="App">
       <Header></Header>
       <Main>
         {status === 'loading' && <Loader />}
-        {status === 'error'   && <Error />}
-        {status === 'ready'   && <StartScreen numQuestions={numQuestions} dispatch={dispatch} />}
-        {status === 'active'  && <Question question={questions[index]} />}
+        {status === 'error' && <Error />}
+        {status === 'ready' && <StartScreen numQuestions={numQuestions} dispatch={dispatch} />}
+        {status === 'active' && <Question question={questions[index]} dispatch={dispatch} answer={answer} />}
       </Main>
     </div>
   );
