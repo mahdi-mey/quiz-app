@@ -14,7 +14,8 @@ const initialState = {
   status: 'loading', // loading, error, ready, active, finished
   index: 0,
   answer: null,
-  points: 0
+  points: 0,
+  highscore: 0
 }
 
 function reducer(prevState, action) {
@@ -55,14 +56,15 @@ function reducer(prevState, action) {
     case 'finished':
       return {
         ...prevState,
-        status: 'finished'
+        status: 'finished',
+        highscore: prevState.points > prevState.highscore ? prevState.points : prevState.highscore
       }
     default: throw new Error('Action unknown')
   }
 }
 
 function App() {
-  const [{ questions, status, index, answer, points }, dispatch] = useReducer(reducer, initialState)
+  const [{ questions, status, index, answer, points, highscore }, dispatch] = useReducer(reducer, initialState)
 
   const numQuestions = questions.length
   const maxPossiblePoints = questions.reduce((prev, cur) => (
@@ -94,7 +96,7 @@ function App() {
         </>    
         }
         {
-          status === 'finished' && <FinishedScreen points={points} maxPossiblePoints={maxPossiblePoints} dispatch={dispatch} />
+          status === 'finished' && <FinishedScreen points={points} maxPossiblePoints={maxPossiblePoints} dispatch={dispatch} highscore={highscore} />
         }
       </Main>
     </div>

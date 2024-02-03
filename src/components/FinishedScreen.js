@@ -1,4 +1,4 @@
-export default function FinishedScreen({ points, maxPossiblePoints, dispatch }) {
+export default function FinishedScreen({ points, maxPossiblePoints, highscore}) {
     const percentage = (points / maxPossiblePoints) * 100
 
     let emoji;
@@ -9,8 +9,13 @@ export default function FinishedScreen({ points, maxPossiblePoints, dispatch }) 
     if (percentage === 0) emoji = "🤦‍♂️";
 
     return (
-        <p className="result">
-            <span>{emoji} </span>You Scored <strong>{points}</strong> out of {maxPossiblePoints}
-        </p>
+        <>
+            <p className="result">
+                <span>{emoji} </span>You Scored <strong>{points}</strong> out of {maxPossiblePoints}
+            </p>
+            <p className="highscore">
+                Highscore: {highscore} points
+            </p>
+        </>
     )
 }
