@@ -59,6 +59,14 @@ function reducer(prevState, action) {
         status: 'finished',
         highscore: prevState.points > prevState.highscore ? prevState.points : prevState.highscore
       }
+    case 'restart':
+      return {
+        ...prevState,
+        index: 0,
+        points: 0,
+        answer: null,
+        status: 'ready'
+      }
     default: throw new Error('Action unknown')
   }
 }
