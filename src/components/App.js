@@ -11,6 +11,26 @@ import FinishedScreen from './FinishedScreen'
 import Footer         from './Footer'
 import Timer          from './Timer'
 
+// i got a react quiz app and i am gonna describe you the project and you give me a readme.md in markdown language 
+
+// the project was built in order for me to learn useReducer in react
+
+// it gets questions from a fake api i set with npm also the user needs to first start the fake api
+
+// with npm run server and then npm start to actually start the quiz
+
+// it has timer and when time finishes the quiz also finishes 
+
+// it has progressbar that shows points & number of questions
+
+// user can restart the quiz after it finishes
+
+// after user clicks on one of answers 2 things happen 
+
+// first the Next button show second the correct answer gets blue and wrong ones get orange
+
+// and i want you to give the readme in markdown language
+
 const initialState = {
   questions: [],
   status: 'loading', // loading, error, ready, active, finished
