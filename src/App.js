@@ -1,35 +1,16 @@
 import { useEffect, useReducer } from 'react'
-import Header         from './Header'
-import Main           from './Main'
-import Loader         from './Loader'
-import Error          from './Error'
-import StartScreen    from './StartScreen'
-import Question       from './Question'
-import NextButton     from './NextButton'
-import Progress       from './Progress'
-import FinishedScreen from './FinishedScreen'
-import Footer         from './Footer'
-import Timer          from './Timer'
+import Header         from './components/Header'
+import Main           from './components/Main'
+import Loader         from './components/Loader'
+import Error          from './components/Error'
+import StartScreen    from './components/StartScreen'
+import Question       from './components/Question'
+import NextButton     from './components/NextButton'
+import Progress       from './components/Progress'
+import FinishedScreen from './components/FinishedScreen'
+import Footer         from './components/Footer'
+import Timer          from './components/Timer'
 
-// i got a react quiz app and i am gonna describe you the project and you give me a readme.md in markdown language 
-
-// the project was built in order for me to learn useReducer in react
-
-// it gets questions from a fake api i set with npm also the user needs to first start the fake api
-
-// with npm run server and then npm start to actually start the quiz
-
-// it has timer and when time finishes the quiz also finishes 
-
-// it has progressbar that shows points & number of questions
-
-// user can restart the quiz after it finishes
-
-// after user clicks on one of answers 2 things happen 
-
-// first the Next button show second the correct answer gets blue and wrong ones get orange
-
-// and i want you to give the readme in markdown language
 
 const initialState = {
   questions: [],
