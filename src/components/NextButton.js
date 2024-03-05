@@ -1,4 +1,9 @@
-export default function NextButton ({dispatch, answer, index, numQuestions}){
+import { useQuizContext } from "../contextes/QuizContext"
+
+export default function NextButton (){
+
+    const {dispatch, answer, index, numQuestions} = useQuizContext()
+
     if(answer === null){
         return null
     }
